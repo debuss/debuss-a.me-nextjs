@@ -2,13 +2,9 @@ import Link from "next/link";
 import TagList from "./taglist";
 
 export default ({ posts }) => {
-    const months = [
-
-    ];
-
     return <>
-        {posts.filter(post => post.active).map((post, key) => {
-            const publicationDate = new Date(post.published);
+        {posts?.data?.map((post, key) => {
+            const publicationDate = new Date(post.attributes.published);
 
             return (
                 <div className="container px-0 py-8 mx-auto" key={key}>
@@ -25,16 +21,16 @@ export default ({ posts }) => {
                             </div>
                             <div className="md:flex-grow">
                                 <h2 className="text-2xl font-medium text-gray-900 title-font mb-0">
-                                    <Link href={`/blog/${post.slugurl}`}>
-                                        {post.title}
+                                    <Link href={`/blog/${post.attributes.slugurl}`}>
+                                        {post.attributes.title}
                                     </Link>
                                 </h2>
-                                <TagList tags={post?.tags} />
+                                <TagList tags={post.attributes?.tags} />
                                 <p className="leading-relaxed">
-                                    {post.summary}
+                                    {post.attributes.summary}
                                 </p>
                                 <div className="text-blue-500 inline-flex items-center mt-4">
-                                    <Link href={`/blog/${post.slugurl}`}>
+                                    <Link href={`/blog/${post.attributes.slugurl}`}>
                                         Read more
                                         <svg
                                             className="w-4 h-4 ml-2 inline-block"

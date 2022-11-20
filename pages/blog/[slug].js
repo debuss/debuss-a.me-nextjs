@@ -11,21 +11,21 @@ export default ({ post }) => {
         return router.push('/blog');
     }
 
-    const publicationDate = new Date(post.published);
+    const publicationDate = new Date(post?.data[0]?.attributes.published);
 
     return <>
         <Head>
-            <title>{post?.title || 'Post'} | debuss-a</title>
-            <meta name="description" content={post?.meta_description || 'Post'} />
+            <title>{post?.data[0]?.attributes?.title || 'Post'} | debuss-a</title>
+            <meta name="description" content={post?.data[0]?.attributes?.meta_description || 'Post'} />
             <meta name="copyright" content="Alexandre DEBUSSCHÈRE" />
             <meta name="author" content="Alexandre DEBUSSCHÈRE" />
-            <meta property="og:title" content={post?.seo_title} />
-            <meta property="og:description" content={post?.meta_description} />
+            <meta property="og:title" content={post?.data[0]?.attributes?.seo_title} />
+            <meta property="og:description" content={post?.data[0]?.attributes?.meta_description} />
             <meta property="og:type" content="article" />
-            <meta property="og:url" content={`https://debuss-a.me/blog/${post?.slugurl}`} />
-            <meta property="og:image" content={`https://strapi.debuss-a.me${post?.seo_image?.file?.url}`} />
-            <meta property="og:image:width" content={post?.seo_image?.file?.width} />
-            <meta property="og:image:height" content={post?.seo_image?.file?.height} />
+            <meta property="og:url" content={`https://debuss-a.me/blog/${post?.data[0]?.attributes?.slugurl}`} />
+            <meta property="og:image" content={`https://strapi.debuss-a.me${post?.data[0]?.attributes?.seo_image?.file?.url}`} />
+            <meta property="og:image:width" content={post?.data[0]?.attributes?.seo_image?.file?.width} />
+            <meta property="og:image:height" content={post?.data[0]?.attributes?.seo_image?.file?.height} />
             <meta property="og:site_name" content="debuss-a.me" />
         </Head>
         <section className="text-gray-700 body-font">
@@ -53,15 +53,14 @@ export default ({ post }) => {
                             </Link>
                         </span>
                     <h1 className="font-bold break-normal text-gray-900 pt-6 pb-2 text-3xl md:text-4xl">
-                        {post?.title}
+                        {post?.data[0]?.attributes?.title}
                     </h1>
-                    <TagList tags={post?.tags} />
+                    <TagList tags={post?.data[0]?.attributes?.tags} />
                     <p className="text-sm md:text-base font-normal text-gray-700">
                         Published on {
                             `${new Intl.DateTimeFormat('en-US', { month: 'long'}).format(publicationDate)} 
                             ${publicationDate.getDay()}, ${publicationDate.getFullYear()}`
                         }
-                        {/*by {post?.created_by?.firstname} {post?.created_by?.lastname}*/}
                     </p>
                 </div>
             </div>
@@ -70,38 +69,10 @@ export default ({ post }) => {
             <div className="w-full container mx-auto flex px-5 pt-12 pb-12 md:flex-row flex-col items-center">
                 <div className="lg:flex-grow flex flex-col md:items-start md:text-left items-center text-center">
                     <div className="flex flex-wrap w-full">
-                        {post && Object.keys(post).length === 0 && post.constructor === Object && <div className="flex mx-auto h-24">
-                            <svg version="1.1" className="" width="200" height="100">
-                                <circle fill="#cbd5e0" stroke="none" cx="30" cy="50" r="24">
-                                    <animate
-                                        attributeName="opacity"
-                                        dur="1s"
-                                        values="0;1;0"
-                                        repeatCount="indefinite"
-                                        begin="0.1"/>
-                                </circle>
-                                <circle fill="#cbd5e0" stroke="none" cx="100" cy="50" r="24">
-                                    <animate
-                                        attributeName="opacity"
-                                        dur="1s"
-                                        values="0;1;0"
-                                        repeatCount="indefinite"
-                                        begin="0.2"/>
-                                </circle>
-                                <circle fill="#cbd5e0" stroke="none" cx="172" cy="50" r="24">
-                                    <animate
-                                        attributeName="opacity"
-                                        dur="1s"
-                                        values="0;1;0"
-                                        repeatCount="indefinite"
-                                        begin="0.3"/>
-                                </circle>
-                            </svg>
-                        </div>}
                         <Markdown
                             className="post-markdown"
-                            children={post?.body}
-                            transformImageUri={(uri) => `https://strapi.debuss-a.me${uri}`}
+                            children={post?.data[0]?.attributes?.body}
+                            transformImageUri={(uri) => `https://strapi-production-4cf6.up.railway.app${uri}`}
                             components={{
                                 code: CodeBlock
                             }}
@@ -118,8 +89,8 @@ export async function getServerSideProps(context) {
 
     // Call an external API endpoint to get posts.
     // You can use any data fetching library
-    const response = await fetch(`https://strapi.debuss-a.me/articles?slugurl=${slug}`)
-    const post = (await response.json())[0];
+    const response = await fetch(`https://strapi-production-4cf6.up.railway.app/api/articles?filters[slugurl][$eq]=${slug}`)
+    const post = await response.json();
 
     if (post === undefined) {
         return {
