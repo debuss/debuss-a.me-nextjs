@@ -5,7 +5,7 @@ import Nav from '../components/navbar';
 import Footer from '../components/footer';
 import '../styles/globals.css';
 
-function MyApp({Component, pageProps}) {
+export default ({Component, pageProps}) => {
     useEffect(() => {
         if (typeof window !== 'undefined') {
             window.ackeeTrackerInstance = ackeeTracker.create('https://analytics.kosmonaft.dev', {
@@ -36,6 +36,4 @@ function MyApp({Component, pageProps}) {
         <Component {...pageProps} />
         <Footer/>
     </>;
-}
-
-export default MyApp;
+};

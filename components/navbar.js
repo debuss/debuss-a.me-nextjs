@@ -39,10 +39,10 @@ export default () => {
 
     return <>
         <nav id="header" className="fixed w-full z-10 top-0">
-            <div id="progress" className="h-1 z-20 top-0" style={{background: 'linear-gradient(to right, #4dc0b5 var(--scroll), transparent 0)'}}/>
+            <div id="progress" className="h-1 z-20 top-0" style={{background: 'linear-gradient(to right, rgb(59 130 246) var(--scroll), transparent 0)'}}/>
             <div className="w-full container mx-auto flex flex-wrap items-center justify-between mt-0 py-3">
                 <div className="pl-4">
-                    <Link className="text-gray-900 text-base no-underline hover:no-underline font-bold text-xl" href="/">
+                    <Link className="text-gray-900 text-base no-underline hover:no-underline font-bold text-xl" href="/" onClick={() => setHidden(true)}>
                         ( new <span className="text-blue-500">debuss-a</span>() )-&gt;<span className="text-blue-500">me()</span>;
                     </Link>
                 </div>
@@ -57,20 +57,19 @@ export default () => {
                         }}
                     >
                         <svg className="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                            <title>
-                                Menu
-                            </title>
+                            <title>Menu</title>
                             <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/>
                         </svg>
                     </button>
                 </div>
-                <div className={`w-full flex-grow lg:flex lg:items-center lg:w-auto ${hidden ? 'hidden' : ''} lg:block mt-2 lg:mt-0 z-20 `} id="nav-content">
+                <div className={`w-full flex-grow lg:flex lg:items-center lg:w-auto ${hidden ? 'hidden' : ''} lg:block mt-2 lg:mt-0 z-20 bg-slate-200`} id="nav-content">
                     <ul className="list-reset lg:flex justify-end flex-1 items-center">
                         <li className="mr-3">
                             <Link
                                 className="inline-block text-gray-700 no-underline hover:text-gray-900 hover:text-underline py-2 px-4 w-full"
                                 href="/blog"
                                 activeclassname="text-gray-900 font-semibold"
+                                onClick={() => setHidden(true)}
                             >
                                 Blog
                             </Link>
@@ -80,6 +79,7 @@ export default () => {
                                 className="inline-block text-gray-700 no-underline hover:text-gray-900 hover:text-underline py-2 px-4 w-full"
                                 href="/resume"
                                 activeclassname="text-gray-900 font-semibold"
+                                onClick={() => setHidden(true)}
                             >
                                 R&eacute;sum&eacute;
                             </Link>

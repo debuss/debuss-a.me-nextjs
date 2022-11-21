@@ -1,7 +1,7 @@
 import { getServerSideSitemap } from 'next-sitemap';
 
 export const getServerSideProps = async (ctx) => {
-    const response = await fetch('https://strapi-production-4cf6.up.railway.app/api/articles?sort=id:desc&fields[0]=slugurl&fields[1]=published');
+    const response = await fetch('https://strapi.debuss-a.me/api/articles?sort=id:desc&fields[0]=slugurl&fields[1]=published');
     const posts = await response.json();
 
     const fields = posts?.data?.map(post => ({

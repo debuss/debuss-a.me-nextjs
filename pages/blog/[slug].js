@@ -72,7 +72,7 @@ export default ({ post }) => {
                         <Markdown
                             className="post-markdown"
                             children={post?.data[0]?.attributes?.body}
-                            // transformImageUri={(uri) => `https://strapi-production-4cf6.up.railway.app${uri}`}
+                            // transformImageUri={(uri) => `https://strapi.debuss-a.me${uri}`}
                             components={{
                                 code: CodeBlock
                             }}
@@ -89,7 +89,7 @@ export async function getServerSideProps(context) {
 
     // Call an external API endpoint to get posts.
     // You can use any data fetching library
-    const response = await fetch(`https://strapi-production-4cf6.up.railway.app/api/articles?filters[slugurl][$eq]=${slug}&populate=*`)
+    const response = await fetch(`https://strapi.debuss-a.me/api/articles?filters[slugurl][$eq]=${slug}&populate=*`)
     const post = await response.json();
 
     if (post === undefined) {
