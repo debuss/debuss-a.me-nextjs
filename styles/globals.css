@@ -60,3 +60,8 @@ body {
     display: inline-block;
     text-align: left;
 }
+
+.codeStyle {
+    width: 100% !important;
+    max-width: 90vw !important;
+}

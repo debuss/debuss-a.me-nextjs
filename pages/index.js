@@ -51,7 +51,7 @@ export async function getServerSideProps({ req, res }) {
   );
 
   // Fetch data from external API
-    const response = await fetch(`https://strapi-production-4cf6.up.railway.app/api/articles?sort=id:desc&pagination[page]=1&pagination[pageSize]=3`);
+  const response = await fetch(`https://strapi-production-4cf6.up.railway.app/api/articles?sort=id:desc&pagination[page]=1&pagination[pageSize]=3&populate[]=tags`);
   const posts = await response.json();
 
   // Pass data to the page via props
