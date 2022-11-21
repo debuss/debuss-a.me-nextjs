@@ -23,9 +23,9 @@ export default ({ post }) => {
             <meta property="og:description" content={post?.data[0]?.attributes?.meta_description} />
             <meta property="og:type" content="article" />
             <meta property="og:url" content={`https://debuss-a.me/blog/${post?.data[0]?.attributes?.slugurl}`} />
-            <meta property="og:image" content={`https://strapi.debuss-a.me${post?.data[0]?.attributes?.seo_image?.file?.url}`} />
-            <meta property="og:image:width" content={post?.data[0]?.attributes?.seo_image?.file?.width} />
-            <meta property="og:image:height" content={post?.data[0]?.attributes?.seo_image?.file?.height} />
+            <meta property="og:image" content={post?.data[0]?.attributes?.seo_image?.data?.attributes?.url} />
+            <meta property="og:image:width" content={post?.data[0]?.attributes?.seo_image?.data?.attributes?.width} />
+            <meta property="og:image:height" content={post?.data[0]?.attributes?.seo_image?.data?.attributes?.height} />
             <meta property="og:site_name" content="debuss-a.me" />
         </Head>
         <section className="text-gray-700 body-font">
@@ -72,7 +72,7 @@ export default ({ post }) => {
                         <Markdown
                             className="post-markdown"
                             children={post?.data[0]?.attributes?.body}
-                            transformImageUri={(uri) => `https://strapi-production-4cf6.up.railway.app${uri}`}
+                            // transformImageUri={(uri) => `https://strapi-production-4cf6.up.railway.app${uri}`}
                             components={{
                                 code: CodeBlock
                             }}
@@ -89,7 +89,7 @@ export async function getServerSideProps(context) {
 
     // Call an external API endpoint to get posts.
     // You can use any data fetching library
-    const response = await fetch(`https://strapi-production-4cf6.up.railway.app/api/articles?filters[slugurl][$eq]=${slug}`)
+    const response = await fetch(`https://strapi-production-4cf6.up.railway.app/api/articles?filters[slugurl][$eq]=${slug}&populate=*`)
     const post = await response.json();
 
     if (post === undefined) {
