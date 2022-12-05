@@ -89,7 +89,7 @@ export async function getServerSideProps(context) {
 
     // Call an external API endpoint to get posts.
     // You can use any data fetching library
-    const response = await fetch(`https://strapi.debuss-a.me/api/articles?filters[slugurl][$eq]=${slug}&populate=*`)
+    const response = await fetch(`https://strapi.debuss-a.me/api/articles?filters[slugurl][$eq]=${slug}&populate=*&locale=all`)
     const post = await response.json();
 
     if (post === undefined) {

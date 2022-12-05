@@ -32,13 +32,26 @@ body {
     border-radius: 6px;
 }
 
-.post-markdown h2 {
-    font-size: 1.5rem;
+.post-markdown h2,
+.post-markdown h3,
+.post-markdown h4 {
     font-weight: 700;
     padding-top: 1.5rem;
     padding-bottom: 0.5rem;
     color: #1a202c;
     color: rgba(26, 32, 44, var(--text-opacity));
+}
+
+.post-markdown h2 {
+    font-size: 1.5rem;
+}
+
+.post-markdown h3 {
+    font-size: 1.3rem;
+}
+
+.post-markdown h4 {
+    font-size: 1.1rem;
 }
 
 .post-markdown a {
